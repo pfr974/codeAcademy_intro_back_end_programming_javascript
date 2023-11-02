@@ -1,6 +1,6 @@
 # Essential and basic JavaScript concepts
 
-## Arrow Expressions
+## 1] Arrow Expressions
 
 In `arrow_expressions_demo.js`, I first define an **anonymous** arrow function. When using an arrow expression, we do not use the function declaration. To define an arrow expression we simply use: `() => { }`. We can pass arguments to an arrow expression between the parenthesis `(())`.
 
@@ -50,9 +50,9 @@ Hello, my name is Anon! I am not an anonymous function anymore.
 
 Please note that the use of backticks allows for embedded expressions, i.e. `${name}`. This replaces ``${name}`` with the value of the variable `name` that is passed to the `namedArrowFunction` function. This is a feature of the ES6 version mentioned in the lecture.
 
-## Asynchronous Concept
+## 2] Asynchronous Concept
 
-### Promises
+### 2.1] Promises, start
 
 To illustrate the concept of asynchronous code in the context of Javascript, the lecture decides to introduce us to **Promises**. 
 
@@ -107,8 +107,11 @@ Error: Unlucky!
     at internal/main/run_main_module.js:17:47
 ```
 
-I think we should note that this is an abstraction of the concept of asynchronous code and `Promise`. As far as I understand, the code here appears to be executed synchronously due to its relative simplicity. I think we could try to adapt this example by introducing an artifical delay in an alternative version defined in a separate file, e.g. `asynchronous_concept_promises_alternative.js`. 
+We should note that this is an abstraction of the concept of asynchronous code and `Promise`. As far as I understand, the code here appears to be executed synchronously/instantaneously due to its relative simplicity. 
 
+We could try to adapt this example by introducing an artifical delay in an alternative version defined in a separate file, e.g. `asynchronous_concept_promises_alternative.js`. 
+
+### 2.2] Promises, slightly more illustrative
 
 The code is the following:
   
