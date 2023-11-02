@@ -87,12 +87,14 @@ The bit after the `testLuck` constant declaration is a chain of two methods, `th
 In the case of a fullfilled promise, the output is:
 
 ```sh 
+╰─ node asynchronous_concept_promises.js                                                    ─╯
 Lucky winner!
 ```
 
 and in the case of a rejected promise, the output is:
 
 ```sh
+╰─ node asynchronous_concept_promises.js                                                    ─╯
 Error: Unlucky!
     at /Users/pfr974/code/personal/codeAcademy_intro_back_end_programming_javascript/asynchronous_concept_promises.js:6:12
     at new Promise (<anonymous>)
@@ -106,3 +108,66 @@ Error: Unlucky!
 ```
 
 I think we should note that this is an abstraction of the concept of asynchronous code and `Promise`. As far as I understand, the code here appears to be executed synchronously due to its relative simplicity. I think we could try to adapt this example by introducing an artifical delay in an alternative version defined in a separate file, e.g. `asynchronous_concept_promises_alternative.js`. 
+
+
+The code is the following:
+  
+  ```javascript
+// Creating a new Promise with an artificial delay using setTimeout.
+// See https://developer.mozilla.org/en-US/docs/Web/API/setTimeout
+const testLuck = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    if (Math.random() < 0.5) { 
+      resolve('Lucky winner!');
+    } else {
+      reject(new Error('Unlucky!'));
+    }
+  }, 5000);  // 5000 milliseconds delay, that is 5 seconds
+});
+
+console.log('Checking your luck...');  // Log immediately
+
+testLuck.then(message => {
+  console.log(message);  // Log the resolved promise output after 5 seconds
+}).catch(error => {
+  console.error(error);  // Log the rejected promise output after 5 seconds
+});
+
+console.log('Waiting for the result...');  // Log immediately as well
+  ```
+
+As before, we create a new `Promise` object and store it into a `testLuck` constant. However, the setTimeout method introduces an artificial delay of 5 seconds before deciding if we fulfilled or rejected the promise. The chain of `catch` and `then` methods works the same way as before, with the addition of two extra console logs.
+
+The chain of events is clearer here in my opinion:
+
+1) The first console log is executed immediately
+2) A new `Promise` object is created and stored into a constant `testLuck`. Inside, `setTimeout` adds an artificial delay of 5 seconds before deciding whether to resolve or reject the promise. 
+3) **The second console log is also excuted immediately, not waiting for the promise to be resolved or rejected.**
+
+This gives us the following output:
+
+```sh
+node asynchronous_concept_promises_alternatives.js                                                                                                                                                          ─╯
+Checking your luck...
+Waiting for the result...
+``````
+
+4) After 5 seconds, the promise either resolves with:
+
+```sh
+─ node asynchronous_concept_promises_alternatives.js                                                                                                                                                          ─╯
+Checking your luck...
+Waiting for the result...
+Lucky winner!
+```
+
+or is rejected with:
+```sh
+─ node asynchronous_concept_promises_alternatives.js                                                                                                                                                          ─╯
+Checking your luck...
+Waiting for the result...
+Error: Unlucky!
+    at Timeout._onTimeout (/Users/pfr974/code/personal/codeAcademy_intro_back_end_programming_javascript/asynchronous_concept_promises_alternatives.js:8:14)
+    at listOnTimeout (internal/timers.js:557:17)
+    at processTimers (internal/timers.js:500:7)
+```
